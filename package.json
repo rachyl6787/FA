@@ -1,0 +1,25 @@
+{
+  "name": "forbes-assessment",
+  "version": "1.0.0",
+  "description": "Rachel Farley Forbes Assessment",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon server/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rachyl6787/forbes-assessment.git"
+  },
+  "author": "Rachel Farley",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rachyl6787/forbes-assessment/issues"
+  },
+  "homepage": "https://github.com/rachyl6787/forbes-assessment#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
