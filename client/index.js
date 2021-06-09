@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const modal = document.getElementById('imageModal');
   let images;
 
-  await fetch(`${endpoint}?limit=60`, {
+  await fetch(`${endpoint}?limit=60&category_ids=1`, {
     headers: {
       'x-api-key': key,
     },
@@ -16,17 +16,17 @@ document.addEventListener('DOMContentLoaded', async () => {
     .catch((err) => {
       return err;
     });
-  let x = 0;
 
   for (let i = 0; i < images.length / 10; i++) {
     const newButton = document.createElement('button');
     newButton.innerText = i + 1;
-    newButton.addEventListener('click', (e) => {
-      x = (newButton.innerText - 1) * 10;
+    newButton.addEventListener('click', () => {
       const remove = document.getElementsByClassName('imagePage');
       while (remove.length > 0) {
         remove[0].parentNode.removeChild(remove[0]);
       }
+
+      let x = (newButton.innerText - 1) * 10;
 
       for (let i = x; i < x + 10; i++) {
         const newImage = document.createElement('img');
@@ -50,9 +50,8 @@ document.addEventListener('DOMContentLoaded', async () => {
       .getElementById('pagination')
       .appendChild(newButton);
   }
-  console.log('x: ', x);
 
-  for (let i = x; i < x + 10; i++) {
+  for (let i = 0; i < 10; i++) {
     const newImage = document.createElement('img');
     newImage.src = images[i].url;
     newImage.className = 'imagePage';
