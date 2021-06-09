@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const modal = document.getElementById('imageModal');
   let images;
 
-  await fetch(`${endpoint}?limit=50`, {
+  await fetch(`${endpoint}?limit=60`, {
     headers: {
       'x-api-key': key,
     },
@@ -16,16 +16,48 @@ document.addEventListener('DOMContentLoaded', async () => {
     .catch((err) => {
       return err;
     });
+  let x = 0;
 
-  console.log(images);
+  for (let i = 0; i < images.length / 10; i++) {
+    const newButton = document.createElement('button');
+    newButton.innerText = i + 1;
+    newButton.addEventListener('click', (e) => {
+      x = (newButton.innerText - 1) * 10;
+      const remove = document.getElementsByClassName('imagePage');
+      while (remove.length > 0) {
+        remove[0].parentNode.removeChild(remove[0]);
+      }
 
-  for (let i = 0; i < images.length; i++) {
+      for (let i = x; i < x + 10; i++) {
+        const newImage = document.createElement('img');
+        newImage.src = images[i].url;
+        newImage.className = 'imagePage';
+        const modalImage = document.getElementById('img');
+        newImage.addEventListener('click', () => {
+          modal.style.display = 'block';
+          modalImage.src = newImage.src;
+          const dismiss = document.getElementsByClassName('close')[0];
+          dismiss.addEventListener('click', () => {
+            modal.style.display = 'none';
+          });
+        });
+
+        const list = document.getElementById('cat-list').appendChild(newImage);
+      }
+    });
+
+    const pagination = document
+      .getElementById('pagination')
+      .appendChild(newButton);
+  }
+  console.log('x: ', x);
+
+  for (let i = x; i < x + 10; i++) {
     const newImage = document.createElement('img');
     newImage.src = images[i].url;
-    newImage.id = images[i].id;
+    newImage.className = 'imagePage';
     const modalImage = document.getElementById('img');
     newImage.addEventListener('click', () => {
-      console.log(newImage.id);
       modal.style.display = 'block';
       modalImage.src = newImage.src;
       const dismiss = document.getElementsByClassName('close')[0];
